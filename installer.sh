@@ -57,10 +57,10 @@ function create_6 {
     mkdir -p $J_DIR
     /bin/bash $JMAN_DIR/j602a_linux64.sh -install $INSTALL_DIR
     sed -i 's/java64/java/g; s/bin/./g' $J_DIR/bin/jwd # ~~hacky~~!
-    mkdir -p $J_USER_DIR/projects/$PRJ_NAME
-    touch $J_USER_DIR/projects/$PRJ_NAME/init.ijs
   fi
-
+  mkdir -p $J_USER_DIR/projects/$PRJ_NAME
+  touch $J_USER_DIR/projects/$PRJ_NAME/init.ijS
+  echo "Project folder created at ${J_USER_DIR}/projects/${PROJ_NAME}".
 }
 
 function create_7 {
@@ -84,10 +84,11 @@ function create_7 {
     wget --no-clobber ${LINK} -P $JMAN_DIR
     chmod +x $JMAN_DIR/j701a_linux64.sh
     mkdir -p $J_DIR
-    /bin/bash $JMAN_DIR/j701a_linux64.sh -install $INSTALL_DIR
-    mkdir -p $J_USER_DIR/projects/$PRJ_NAME
-    touch $J_USER_DIR/projects/$PRJ_NAME/init.ijs
+    /bin/bash $JMAN_DIR/j701a_linux64.sh -install $INSTALL_DIR 
   fi
+  mkdir -p $J_USER_DIR/projects/$PRJ_NAME
+  touch $J_USER_DIR/projects/$PRJ_NAME/init.ijs
+  echo "Project folder created at ${J_USER_DIR}/projects/${PROJ_NAME}".
 
 }
 
@@ -108,24 +109,24 @@ function create_8_or_9 {
     FILE=${LINK##*/}
     mkdir -p $J_DIR
     tar -C $HOME -xvf "${JMAN_DIR}/${FILE}"
-    /bin/bash ${J_DIR}/updatejqt.sh
-    mkdir -p $J_USER_DIR/projects/$PRJ_NAME
-    touch $J_USER_DIR/projects/$PRJ_NAME/init.ijs
+    /bin/bash ${J_DIR}/updatejqt.sh 
   fi
+  mkdir -p $J_USER_DIR/projects/$PRJ_NAME
+  touch $J_USER_DIR/projects/$PRJ_NAME/init.ijs
+  echo "Project folder created at ${J_USER_DIR}/projects/${PROJ_NAME}".
 }
 
 
 
-if [ $# -lt 3 ] ; then
+if [ $# -lt 2 ] ; then
 
   echo "Too few arguments."
   exit 1
 fi
 
-if [ $# -eq 3 ] ; then
+if [ $# -eq 2 ] ; then
   PRJ_NAME=$1
   J_VER=$2
-  OPTS=$3
 fi
 
 if [ $EUID -eq 0 ] ; then
